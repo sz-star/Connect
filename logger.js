@@ -10,4 +10,5 @@ function setup(format) {
     next();
   }
 }
+
 module.exports = setup;

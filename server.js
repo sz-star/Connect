@@ -1,13 +1,14 @@
 const connect = require('connect');
-const setup = require('./logger.js')
+const setup = require('./logger.js');
+const errorHandler = require('./errors.js');
  
-function hello(req, res) {
-  // foo();   此函数假如不存在,connect默认的处理方式是返回响应状态码500
+function hello(req, res, next) {
   res.setHeader('Content-Type', 'text/plain');
-  res.end('hello world');
+  next(new Error('Intentional error'));
 }
 
 const app = connect()
   .use(setup(':method :url'))
   .use(hello)
+  .use(errorHandler)
   .listen(3000);
